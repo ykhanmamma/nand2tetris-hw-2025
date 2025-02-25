@@ -1,10 +1,10 @@
 CHIP Or {
     IN in1, in2;
-    OUT out1;
+    OUT out;
 
     PARTS:
     Not(in=in1, out=tmp1);
     Not(in=in2, out=tmp2);
     And(a=tmp1, b=tmp2, out=tmp3);
-    Not(in=tmp3, out =out1);
+    Not(in=tmp3, out =out);
 }
