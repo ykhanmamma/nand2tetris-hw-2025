@@ -12,7 +12,7 @@ CHIP FullAdder {
 
     PARTS:
     Xor(a = a, b = b, out = o1);
-    And(a= b, b= b, out= o2);
+    And(a= a, b= b, out= o2);
     Xor(a = o1, b = c, out = sum);
     And(a= o1, b= c, out= o3);
     Or(a= o3, b= o2, out= carry);
