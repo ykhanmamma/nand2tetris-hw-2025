@@ -12,17 +12,14 @@
 CHIP PC {
     IN in[16], reset, load, inc;
     OUT out[16];
-    
+
     PARTS:
-    // Register must be defined first
     Register(in=outmux, load=load, out=out, out=outlo);
 
-    // Reset Logic
-    Mux16(a=in, b=false, sel=reset, out=outres);
-    Mux(a=load, b=true, sel=reset, out=outload);
+    Mux16(a=outlo, b=0, sel=reset, out=outres);
+    Mux(a=load, b=1, sel=reset, out=outload);
 
-    // Increment Logic
     Inc16(in=outlo, out=outinc);
     Mux16(a=outlo, b=outinc, sel=inc, out=outlas);
-    Mux16(a=outlas, b=outres, sel=outmux);
+    Mux16(a=outlas, b=outres, sel=outmux);  
 }
