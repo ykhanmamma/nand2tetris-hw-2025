@@ -11,10 +11,7 @@ CHIP And {
     OUT out;
     
     PARTS:
-    Nand(a=a, b=b, out=nandout);
-    Not(in=nandout, out=out);
-<<<<<<< HEAD
+    Nand(a=a, b=b, out=myout);
+    Not(in = myout, out = out);
+    //// Replace this comment with your code.
 }
-=======
-}
->>>>>>> 45a4ae9dc779610cc2082866fe2cafef36ff5df5
