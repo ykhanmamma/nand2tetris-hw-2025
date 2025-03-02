@@ -11,6 +11,7 @@ CHIP And {
     OUT out;
     
     PARTS:
+<<<<<<< HEAD
     Nand(a=a, b=b, out=nandout);
     Not(in=nandout, out=out);
 <<<<<<< HEAD
@@ -18,3 +19,8 @@ CHIP And {
 =======
 }
 >>>>>>> 45a4ae9dc779610cc2082866fe2cafef36ff5df5
+=======
+    Nand(a=a, b=b, out=nand_out)
+    Not(in=nand_out, out=out)
+}
+>>>>>>> parent of 769e733 (Youssef_Yassin_hw2)
