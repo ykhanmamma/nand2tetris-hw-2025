@@ -10,22 +10,18 @@
  * else              out(t+1) = out(t)
  */
 CHIP PC {
-    IN in[16],load,inc,reset;
+    IN in[16], reset, load, inc;
     OUT out[16];
 
     PARTS:
-	Inc16(in=oo,out=incd);
+    Register(in=outMux , load= true, out=out, out=outReg );
 
-	Mux16(a=oo,b=incd,sel=inc,out=o);
+    Inc16(in=outReg , out=outInc );
 
-	Mux16(a=o,b=in,sel=load,out=uu);
-
-	Mux16(a=uu,b[0..15]=false,sel=reset,out=this);
-
-	Register(in=this,load=true,out=out,out=oo);
-
-
+    Mux8Way16(a= outReg, b=outInc , c=in , d=in , e=false , f=false , g=false , h=false , sel[2]=reset, sel[1] = load, sel[0] = inc , out= outMux);
 }
+
+
 
 
 
