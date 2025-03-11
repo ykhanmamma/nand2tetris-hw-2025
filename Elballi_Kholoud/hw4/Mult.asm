@@ -8,32 +8,26 @@
 // The algorithm is based on repetitive addition.
 
 @R2
-M = 0
+M=0
 
 (LOOP)
     @R1
-    D = M
+    D=M
     @END
     D;JEQ
 
     @R0
-    D = M
+    D=M
     @R2
-    D = D + M
+    D=D+M
 
     @R1
-    D = M
-    D = D - 1
+    D=M
+    D=D-1
     @R1
-    M = D
+    M=D
 
     @LOOP
     0;JMP
 
 (END)
-
-
-
-
-
-
