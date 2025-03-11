@@ -19,15 +19,14 @@ M=0
     @R0
     D=M
     @R2
-    D=D+M
+    M=D+M
 
     @R1
-    D=M
-    D=D-1
-    @R1
-    M=D
+    M=M-1
 
     @LOOP
     0;JMP
 
 (END)
+    @END
+    0;JMP

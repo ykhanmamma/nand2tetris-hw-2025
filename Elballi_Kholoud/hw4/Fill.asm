@@ -16,17 +16,9 @@
     @addr
     M=D
 
-(LOOPW)
-    @SCREEN
-    D=A
-    @addr
-    D=D-M
-    D;JGE
-    A=D
-    M=0
+    @LOOP
+    0;JMP
 
-   @LOOPW
-   0;JMP
 
 (BLACK)
     @SCREEN
@@ -35,6 +27,9 @@
     D=D+A
     @addr
     M=D
+
+    @LOOPB
+    0;JMP
 
 (LOOPB)
     @SCREEN
