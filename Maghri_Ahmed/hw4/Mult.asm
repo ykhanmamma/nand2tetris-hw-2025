@@ -19,4 +19,4 @@ M=0
 0;JMP
 
 (END)
-0;JMPk
+0;JMP
