@@ -7,13 +7,13 @@
   0;JMP
 
 (FILL_WHITE)
-  @pixelValue
+  @R0
   M=-1
   @DRAW_SCREEN
   0;JMP
 
 (FILL_BLACK)
-  @pixelValue
+  @R0
   M=0
   @DRAW_SCREEN
   0;JMP
@@ -21,31 +21,26 @@
 (DRAW_SCREEN)
   @8191
   D=A
-  @pixelCount
+  @R1
   M=D
-
   @SCREEN
   D=A
-  @pixelAddress
+  @R2
   M=D
 
-(DRAW_NEXT)
-  @pixelCount
+(DRAW_LOOP)
+  @R1
   D=M
   @MAIN_LOOP
   D;JEQ
-
-  @pixelValue
+  @R0
   D=M
-  @pixelAddress
+  @R2
   A=M
   M=D
-
-  @pixelAddress
+  @R2
   M=M+1
-
-  @pixelCount
+  @R1
   M=M-1
-
-  @DRAW_NEXT
+  @DRAW_LOOP
   0;JMP
