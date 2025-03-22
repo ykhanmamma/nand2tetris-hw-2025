@@ -1,69 +1,42 @@
-(MAIN_LOOP)
-  @KBD
+@color    
+M=0      
+
+(LOOP)
+
+  @SCREEN
+  D=A
+  @pixels
+
+
+  @KBD   
   D=M
+  @BLACK
+  D;JGT   
+  
+  @color
+  M=0       
+  @COLOR_SCREEN
+  0;JMP    
+  
+  (BLACK)
+    @color
+    M=-1    
 
-  @PAINT_SCREEN
-  D;JGT
+  (COLOR_SCREEN)
+    @color
+    D=M
+    @pixels
+    A=M         
+    M=D         
+    
+    @pixels
+    M=M+1
+    D=M
+        
+    @24576
+    D=D-A
+    @COLOR_SCREEN
+    D;JLT
 
-  @WIPE_DISPLAY
-  0;JMP
-
-(WIPE_DISPLAY)
-  @8192
-  D=A
-  @pixelCounter
-  M=D
-
-  @frameBuffer
-  D=A
-  @pixelAddr
-  M=D
-
-(ERASE_LOOP)
-  @pixelCounter
-  D=M
-  @MAIN_LOOP
-  D;JEQ
-
-  @pixelAddr
-  A=M
-  M=0
-
-  @pixelAddr
-  M=M+1
-
-  @pixelCounter
-  M=M-1
-
-  @ERASE_LOOP
-  0;JMP
-
-(PAINT_SCREEN)
-  @8192
-  D=A
-  @pixelCounter
-  M=D
-
-  @frameBuffer
-  D=A
-  @pixelAddr
-  M=D
-
-(FILL_LOOP)
-  @pixelCounter
-  D=M
-  @MAIN_LOOP
-  D;JEQ
-
-  @pixelAddr
-  A=M
-  M=-1
-
-  @pixelAddr
-  M=M+1
-
-  @pixelCounter
-  M=M-1
-
-  @FILL_LOOP
-  0;JMP
+@LOOP
+0;JMP 
