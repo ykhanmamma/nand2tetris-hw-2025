@@ -1,42 +1,51 @@
-(LOOP)
-@KBD
-D=M
-@WHITE
-D;JGT
-@BLACK
-0;JMP
-(WHITE)
-@R0
-M=-1
-@DRAW
-0;JMP
-(BLACK)
-@R0
-M=0
-@DRAW
-0;JMP
-(DRAW)
-@8191
-D=A
-@R1
-M=D
-@SCREEN
-D=A
-@pos
-M=D
-(NEXT)
-@R1
-D=M
-@LOOP
-D;JEQ
-@R0
-D=M
-@pos
-A=M
-M=D
-@pos
-M=M+1
-@R1
-M=M-1
-@NEXT
-0;JMP
+(MAIN_LOOP)
+  @KBD
+  D=M
+  @FILL_WHITE
+  D;JGT
+  @FILL_BLACK
+  0;JMP
+
+(FILL_WHITE)
+  @pixelValue
+  M=-1
+  @DRAW_SCREEN
+  0;JMP
+
+(FILL_BLACK)
+  @pixelValue
+  M=0
+  @DRAW_SCREEN
+  0;JMP
+
+(DRAW_SCREEN)
+  @8191
+  D=A
+  @pixelCount
+  M=D
+
+  @SCREEN
+  D=A
+  @pixelAddress
+  M=D
+
+(DRAW_NEXT)
+  @pixelCount
+  D=M
+  @MAIN_LOOP
+  D;JEQ
+
+  @pixelValue
+  D=M
+  @pixelAddress
+  A=M
+  M=D
+
+  @pixelAddress
+  M=M+1
+
+  @pixelCount
+  M=M-1
+
+  @DRAW_NEXT
+  0;JMP

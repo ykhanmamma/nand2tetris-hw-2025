@@ -1,26 +1,33 @@
-@2
+@result
 M=0
-@0
+
+@multiplicand
 D=M
-@Mult
+@tempMultiplicand
 M=D
-@1
+
+@multiplier
 D=M
-@count
+@counter
 M=D
+
 (LOOP)
-@count
-D=M
-@END
-D;JEQ
-@Mult
-D=M
-@2
-M=D+M
-@count
-M=M-1
-@LOOP
-0;JMP
+  @counter
+  D=M
+  @END
+  D;JEQ
+
+  @tempMultiplicand
+  D=M
+  @result
+  M=D+M
+
+  @counter
+  M=M-1
+
+  @LOOP
+  0;JMP
+
 (END)
-@END
-0;JMP
+  @END
+  0;JMP
