@@ -1,24 +1,24 @@
 @result
-M=0
+M=0           
 
 @multiplier
 D=M
 @EXIT_LOOP
-D;JEQ
+D;JEQ           
 
 @iterationCounter
-M=D
+M=D             
 
 (MULTIPLY_LOOP)
   @iterationCounter
   D=M
   @EXIT_LOOP
-  D;JEQ
+  D;JEQ         
 
   @multiplicand
   D=M
   @result
-  M=D+M
+  M=D+M         
 
   @iterationCounter
   M=M-1
@@ -27,3 +27,7 @@ M=D
   0;JMP
 
 (EXIT_LOOP)
+  @result
+  D=M
+  @2
+  M=D          
