@@ -1,38 +1,41 @@
-// Mult.asm - Repetitive Addition (Simple but Inefficient)
+// Mult.asm - Repetitive addition (inefficient way to multiply two numbers)
 
-@x            // Load address of x
-D=M           // D = x (the first number to multiply)
-@result       // Clear result to 0
+// Input: 
+//  R0 = first number (multiplicand)
+//  R1 = second number (multiplier)
+// Output: 
+//  R2 = result (multiplication of R0 and R1)
+
+// Initialize the result to 0
+@R2
 M=0
 
-@y            // Load address of y
-D=M           // D = y (the second number to multiply)
-@counter      // Initialize counter to y
-M=D
+// Check if the multiplier (R1) is zero
+@R1
+D=M
+@END
+D;JEQ   // If R1 is zero, skip the loop
 
-// Loop to add x to the result, y times
+// Start of the loop
 (LOOP)
-    @counter   // Load counter value
-    D=M        // D = counter
-    @END       // If counter is 0, we are done
-    D;JEQ      // Jump to END if counter is 0
-
-    @result    // Add x to result
-    D=M        // D = result
-    @x         // Load x
-    D=D+A      // D = result + x
-    @result    // Store back to result
-    M=D
-
-    @counter   // Decrement counter
+    // Add the multiplicand (R0) to the result (R2)
+    @R0
     D=M
-    @counter
-    M=D-1      // Decrement the counter by 1
-    @LOOP      // Repeat the loop
-    0;JMP
+    @R2
+    M=D+M
+
+    // Decrement the multiplier (R1)
+    @R1
+    D=M
+    @LOOP
+    D=D-1
+    M=D
+    @R1
+    D=M
+    @LOOP
+    D;JNE
 
 (END)
-    @result   // Done, result contains the multiplication
-    D=M
-    @SCREEN   // Print the result to the screen (for visualization)
-    M=D
+    // End of the program
+    @END
+    0;JMP
