@@ -1,41 +1,33 @@
-// Mult.asm - Repetitive addition (inefficient way to multiply two numbers)
+// Mult.asm - Repetitive Addition (Simple and Inefficient)
 
-// Input: 
-//  R0 = first number (multiplicand)
-//  R1 = second number (multiplier)
-// Output: 
-//  R2 = result (multiplication of R0 and R1)
+// Inputs: 
+//  R0 = multiplicand (first number)
+//  R1 = multiplier (second number)
 
-// Initialize the result to 0
-@R2
-M=0
+// Output:
+//  R2 = result of multiplication (multiplicand * multiplier)
 
-// Check if the multiplier (R1) is zero
-@R1
-D=M
-@END
-D;JEQ   // If R1 is zero, skip the loop
-
-// Start of the loop
 (LOOP)
-    // Add the multiplicand (R0) to the result (R2)
+    // Check if multiplier is zero, if so, end the loop
+    D=M
+    @END
+    D;JEQ
+
+    // Add multiplicand (R0) to the result (R2)
     @R0
     D=M
     @R2
     M=D+M
 
-    // Decrement the multiplier (R1)
+    // Decrement multiplier (R1) by 1
     @R1
-    D=M
+    M=M-1
+
+    // Repeat the loop
     @LOOP
-    D=D-1
-    M=D
-    @R1
-    D=M
-    @LOOP
-    D;JNE
+    0;JMP
 
 (END)
-    // End of the program
+    // End of program
     @END
     0;JMP

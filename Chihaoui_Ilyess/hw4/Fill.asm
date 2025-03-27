@@ -1,67 +1,42 @@
-// Fill.asm: Interactive program to change the screen color based on key press
-// This program will turn the screen black when a key is pressed and white when no key is pressed.
+// Fill.asm - Screen Blackout on Keypress
 
-@16384      // Start address of the screen memory
-D=A         // Load the screen starting address into D
+// Define screen memory location
+@SCREEN
+D=M  // D = address of screen memory (beginning)
 
-@24576      // Address of the keyboard input (Key press check)
-D=M         // Get the value of the keyboard input (0 if no key is pressed, otherwise non-zero)
+// Infinite loop to check for key press
+(LOOP)
+    // Check if any key is pressed (KBD == 1)
+    @KBD
+    D=M  // D = value from keyboard input (1 if a key is pressed, 0 otherwise)
 
-(LOOP)      
-    @24576      // Check keyboard input again
-    D=M         // Load the keyboard input
-    @KEY_PRESSED
-    D;JNE       // If a key is pressed (D != 0), jump to KEY_PRESSED
+    // If a key is pressed, fill the screen with black (1)
+    @BLACK
+    D;JNE   // Jump to BLACK if a key is pressed
 
-    // No key pressed, fill screen with white (0)
-    @16384      // Address of the first pixel on the screen
-    D=A         // Load the address of the first pixel
-    @FILL_WHITE // Jump to the subroutine to fill the screen white
-    0;JMP
+    // If no key is pressed, fill the screen with white (0)
+    @WHITE
+    D;JEQ   // Jump to WHITE if no key is pressed
 
-(KEY_PRESSED)
-    // Key pressed, fill screen with black (1)
-    @16384      // Address of the first pixel on the screen
-    D=A         // Load the address of the first pixel
-    @FILL_BLACK // Jump to the subroutine to fill the screen black
-    0;JMP
+(BLACK)
+    // Set every pixel on the screen to black (1)
+    @SCREEN
+    M=-1    // All pixels set to 1 (black)
 
-(FILL_WHITE)
-    @16384      // Start from the first pixel
-    D=A         // Load screen address into D
-    @END_WHITE  // Go to the end label once the screen is filled
-    M=0         // Store 0 (white) at the current pixel
+    // Wait for the key to be released (check KBD value)
+    @KBD
+    D=M     // Get the current value of the keyboard
+    @BLACK
+    D;JNE   // If the key is still pressed, stay in BLACK
 
-    (LOOP_FILL_WHITE)
-        @END_WHITE
-        D=M         // Check if we reached the last pixel address
-        @LOOP_FILL_WHITE
-        D;JNE       // Keep looping if not done
-        M=0         // Write white (0) to the current screen pixel
-        @END_WHITE
-        D=D+1       // Move to next pixel in memory
-        @END_WHITE
-        0;JMP
+    @LOOP
+    0;JMP   // Repeat the loop if key is released
 
-(END_WHITE)
-    @END_LOOP
+(WHITE)
+    // Set every pixel on the screen to white (0)
+    @SCREEN
+    M=0     // All pixels set to 0 (white)
 
-(FILL_BLACK)
-    @16384
-    D=A         // Load screen address into D
-    @END_BLACK  // Go to the end label once the screen is filled
-    M=1         // Store 1 (black) at the current pixel
-
-    (LOOP_FILL_BLACK)
-        @END_BLACK
-        D=M         // Check if we reached the last pixel address
-        @LOOP_FILL_BLACK
-        D;JNE       // Keep looping if not done
-        M=1         // Write black (1) to the current screen pixel
-        @END_BLACK
-        D=D+1       // Move to next pixel in memory
-        @END_BLACK
-        0;JMP
-
-(END_BLACK)
-    @END_LOOP
+    // Continue checking for key press
+    @LOOP
+    0;JMP   // Continue the loop to check for key press
