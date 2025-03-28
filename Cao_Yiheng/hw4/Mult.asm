@@ -15,7 +15,9 @@ M=0
 @R1
 D=M
 @LOOP
-D;JEQ
+D;JGT
+@END
+0;JMP
 
 (LOOP)
     @R0
