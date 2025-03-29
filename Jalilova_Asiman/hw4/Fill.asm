@@ -9,30 +9,30 @@
 // the screen should be cleared.
 
  @place // starting point
-  M=0 // place at upper left corner
+  M=0 
 
 (LOOP)
   @KBD // take in keyboard value
-  D=M // put it into D
+  D=M 
   @WHITE
-  D;JEQ // if keyboard value == 0 (aka not pressed) goto WHITE
+  D;JEQ 
   @BLACK
-  0;JMP // otherwise, goto BLACK
+  0;JMP
 
 (WHITE)
   @place
-  D=M // put place into D
+  D=M 
   @LOOP
-  D;JLT // jump to LOOP if we are at less than minimum (0)
+  D;JLT
   @place
   D=M
   @SCREEN
-  A=D+A // calculate place in the screen
-  M=0 // fill pixel with white
+  A=D+A 
+  M=0 
   @place
-  M=M-1 // decrease place
+  M=M-1
   @LOOP
-  0;JMP // jump to LOOP
+  0;JMP
 
 (BLACK)
   @place
@@ -40,17 +40,17 @@
   @8192 // max that place can be
   D=D-A
   @LOOP
-  D;JGE // jump to LOOP if we are at the max (place - 8192 >= 0)
+  D;JGE 
   @place
   D=M
   @SCREEN
-  A=D+A // calculate place
-  M=-1 // fill black
+  A=D+A
+  M=-1
   @place
-  M=M+1 // increase place by 1
+  M=M+1
   @LOOP
-  0;JMP //go back to LOOP
+  0;JMP
 
 (END)
   @END
-  0;JMP // Infinite loop at end
+  0;JMP
