@@ -1,37 +1,15 @@
-.data
-prompt1: .asciiz "first: "
-prompt2: .asciiz "second: "
-message: .asciiz "product: "
+@64
+D=M
+@65
+D=D*M
+@66
+M=D
 
-.text
-.globl main
+@SCREEN
+A=0
+M=-1
 
-main:
-    li $v0, 4
-    la $a0, prompt1
-    syscall
-    
-    li $v0, 5
-    syscall
-    move $t0, $v0
-    
-    li $v0, 4
-    la $a0, prompt2
-    syscall
-    
-    li $v0, 5
-    syscall
-    move $t1, $v0
-    
-    mul $t2, $t0, $t1
-    
-    li $v0, 4
-    la $a0, message
-    syscall
-    
-    li $v0, 1
-    move $a0, $t2
-    syscall
-    
-    li $v0, 10
-    syscall
+@END
+0;JMP
+
+(END)
