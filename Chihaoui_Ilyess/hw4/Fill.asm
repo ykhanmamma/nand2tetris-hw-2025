@@ -6,7 +6,6 @@
     @CLEAR_SCREEN
     0;JMP
 
-
 (FILL_SCREEN)
     @SCREEN
     D=A
@@ -16,11 +15,11 @@
 (FILL_LOOP)
     @R0
     A=M
-    M=-1
+    M=1      // Use 1 instead of -1
     @R0
     M=M+1
     D=M
-    @24576
+    @16383   // Adjust the boundary to the correct memory size (16K max address)
     D=D-A
     @FILL_LOOP
     D;JLT
@@ -36,11 +35,11 @@
 (CLEAR_LOOP)
     @R0
     A=M
-    M=0
+    M=0      // Clear memory with 0
     @R0
     M=M+1
     D=M
-    @24576
+    @16383   // Adjust the boundary again
     D=D-A
     @CLEAR_LOOP
     D;JLT
