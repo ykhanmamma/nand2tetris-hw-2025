@@ -1,22 +1,24 @@
-    @2
+(BEGIN)
+    @R2
     M=0
-    @0
+    @R1
     D=M
-    @END
-    D;JEQ
-    @counter
+    @R3
     M=D
 
 (LOOP)
-    @1
+    @R3
     D=M
-    @2
-    M=M+D
-    @counter
+    @END
+    D;JLE
+    @R0
+    D=M
+    @R2
+    M=D+M
+    @R3
     M=M-1
-    D=M
     @LOOP
-    D;JGT
+    0;JMP
 
 (END)
     @END

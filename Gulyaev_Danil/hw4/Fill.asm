@@ -8,11 +8,12 @@
     M=D
 
 (LOOP)
-    @0
+    @KBD
     D=M
     @FILL
     D;JNE
     @CLEAR
+    0;JMP
 
 (CLEAR)
     D=0
